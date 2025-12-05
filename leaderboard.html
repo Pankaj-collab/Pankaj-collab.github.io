@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Family Quest — Leaderboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="styles.css" rel="stylesheet" />
+  <script defer src="data.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">Family Quest</div>
+      <nav>
+        <a class="nav-link" href="./">Dashboard</a>
+        <a class="nav-link active" href="leaderboard.html">Leaderboard</a>
+        <a class="nav-link" href="admin.html">Admin Panel</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <header class="header">
+        <h1>Current cycle rankings</h1>
+        <p class="sub">See who’s leading in XP this cycle.</p>
+      </header>
+
+      <section class="panel">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Member</th>
+              <th>XP</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardBody"></tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      window.FQ.initLeaderboard();
+    });
+  </script>
+</body>
+</html>

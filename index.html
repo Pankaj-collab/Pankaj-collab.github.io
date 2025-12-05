@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Family Quest — Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="styles.css" rel="stylesheet" />
+  <script defer src="data.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">Family Quest</div>
+      <nav>
+        <a class="nav-link active" href="./">Dashboard</a>
+        <a class="nav-link" href="leaderboard.html">Leaderboard</a>
+        <a class="nav-link" href="admin.html">Admin Panel</a>
+      </nav>
+      <div class="user-switch">
+        <label for="userSelect">Current user</label>
+        <select id="userSelect"></select>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="header">
+        <div class="user-info">
+          <div class="avatar" id="currentUserAvatar"></div>
+          <div>
+            <h1 id="currentUserName">Alex</h1>
+            <p class="sub">XP this cycle: <span id="currentUserXP">0</span></p>
+          </div>
+        </div>
+      </header>
+
+      <section class="panel">
+        <h2>Active quests</h2>
+        <div id="activeQuests" class="cards"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Completed quests</h2>
+        <div id="completedQuests" class="cards"></div>
+      </section>
+    </main>
+  </div>
+
+  <template id="questCardTemplate">
+    <div class="card quest">
+      <div class="card-header">
+        <div class="title"></div>
+        <div class="xp-badge"></div>
+      </div>
+      <p class="desc"></p>
+      <div class="actions">
+        <button class="btn complete">Mark as complete</button>
+        <span class="status"></span>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      window.FQ.initDashboard();
+    });
+  </script>
+</body>
+</html>
