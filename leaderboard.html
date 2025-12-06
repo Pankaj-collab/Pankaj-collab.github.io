@@ -5,6 +5,7 @@
   <title>Family Quest — Leaderboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="styles.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <script defer src="data.js"></script>
   <script defer src="app.js"></script>
 </head>
@@ -38,11 +39,20 @@
         </table>
       </section>
     </main>
+
+    <div class="user-switch-bottom">
+        <label for="userSelect">Current user</label>
+        <select id="userSelect"></select>
+    </div>
+
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       window.FQ.initLeaderboard();
+      // Init user select on Leaderboard page as well
+      window.FQData.load(); // Ensure data is loaded
+      window.FQ.renderUserSelectWrapper(); // Renders the select for the leaderboard page
     });
   </script>
 </body>

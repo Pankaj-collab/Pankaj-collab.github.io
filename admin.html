@@ -5,6 +5,7 @@
   <title>Family Quest — Admin Panel</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="styles.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <script defer src="data.js"></script>
   <script defer src="app.js"></script>
 </head>
@@ -25,49 +26,59 @@
         <p class="sub">Manage members, quests, and cycle settings.</p>
       </header>
 
-      <section class="panel grid-2">
-        <div>
-          <h2>Members</h2>
-          <div id="memberList" class="cards"></div>
-          <div class="form">
-            <h3>Add member</h3>
-            <input id="newMemberName" type="text" placeholder="Name" />
-            <button class="btn" id="addMemberBtn">Add</button>
+      <section class="panel">
+        <div class="header-with-action">
+          <h2>Family Members</h2>
+          <div class="form-group inline">
+            <input id="newMemberName" type="text" placeholder="New Member Name" />
+            <button class="btn success" id="addMemberBtn">Add Member</button>
           </div>
         </div>
-
-        <div>
-          <h2>Cycle controls</h2>
-          <p class="sub">Reset completed status and XP totals for the current cycle.</p>
-          <button class="btn danger" id="resetCycleBtn">Reset cycle</button>
-        </div>
+        
+        <div id="memberList" class="cards"></div>
       </section>
 
       <section class="panel">
-        <h2>Default quests per user</h2>
-        <p class="sub">Configure the five default quests assigned to all members.</p>
+        <h2>Default Quests</h2>
+        <p class="sub">These quests are assigned to new members and when the admin assigns defaults to existing members.</p>
         <div id="defaultQuestList" class="cards"></div>
-        <div class="form">
-          <h3>Add quest</h3>
-          <input id="dqTitle" type="text" placeholder="Title" />
-          <input id="dqDesc" type="text" placeholder="Description" />
-          <input id="dqXP" type="number" placeholder="XP" />
-          <button class="btn" id="addDefaultQuestBtn">Add</button>
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid var(--soft);" />
+
+        <h3>Add New Default Quest</h3>
+        <div class="form-group">
+          <input id="dqTitle" type="text" placeholder="Title (e.g., Load the Dishwasher)" />
+          <input id="dqDesc" type="text" placeholder="Description (e.g., Make sure all dishes are clean and stored.)" />
+          <input id="dqXP" type="number" placeholder="XP Value (e.g., 25)" />
+          <button class="btn" id="addDefaultQuestBtn">Create Quest</button>
         </div>
       </section>
+      
+      <section class="panel" style="background-color: var(--highlight);">
+        <h2>Cycle Control</h2>
+        <p class="sub">**Warning:** Resetting the cycle clears all member XP and marks all current quests as incomplete for all members.</p>
+        <button class="btn danger" id="resetCycleBtn">Reset Current Cycle</button>
+      </section>
     </main>
+
+    <div class="user-switch-bottom">
+        <label for="userSelect">Current user</label>
+        <select id="userSelect"></select>
+    </div>
   </div>
 
   <template id="memberCardTemplate">
     <div class="card member">
       <div class="card-header">
-        <div class="title"></div>
-        <div class="xp-badge"></div>
+        <div class="member-avatar"></div> 
+        <div class="title-wrap">
+          <div class="title"></div>
+          <div class="xp-badge"></div>
+        </div>
       </div>
       <div class="actions">
-        <button class="btn" data-action="assignDefaults">Assign default quests</button>
-        <button class="btn" data-action="clearCompleted">Clear completed</button>
-        <button class="btn danger" data-action="removeMember">Remove member</button>
+        <button class="btn small" data-action="assignDefaults">Assign New Defaults</button>
+        <button class="btn small" data-action="clearCompleted">Clear Completed Quests</button>
+        <button class="btn small danger" data-action="removeMember">Remove Member</button>
       </div>
     </div>
   </template>
@@ -75,12 +86,15 @@
   <template id="defaultQuestTemplate">
     <div class="card quest small">
       <div class="card-header">
-        <div class="title"></div>
-        <div class="xp-badge"></div>
+        <div class="icon-placeholder"></div>
+        <div class="title-wrap">
+          <div class="title"></div>
+          <div class="xp-badge"></div>
+        </div>
       </div>
       <p class="desc"></p>
       <div class="actions">
-        <button class="btn danger" data-action="removeDefaultQuest">Remove</button>
+        <button class="btn danger small" data-action="removeDefaultQuest">Remove</button>
       </div>
     </div>
   </template>
@@ -88,6 +102,9 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       window.FQ.initAdmin();
+      // Init user select on Admin page as well
+      window.FQData.load(); // Ensure data is loaded
+      window.FQ.renderUserSelectWrapper(); // Renders the select for the admin page
     });
   </script>
 </body>
